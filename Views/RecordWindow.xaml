@@ -1,0 +1,26 @@
+<Window x:Class="MiniSoundpad.Views.RecordWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="录音" Width="480" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Closing="Window_Closing">
+    <StackPanel Margin="16">
+        <TextBlock Text="录音来源：" Margin="0,0,0,4" />
+        <ComboBox x:Name="SourceBox" DisplayMemberPath="Name" />
+        <TextBlock Foreground="Gray" TextWrapping="Wrap" Margin="0,6,0,0"
+                   Text="「内录」会录下该播放设备正在放的声音（比如视频、游戏里的一句台词）。没有声音播放时不会写入数据。" />
+
+        <Grid Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar x:Name="LevelBar" Height="14" Minimum="0" Maximum="1" />
+            <TextBlock x:Name="TimeText" Grid.Column="1" Text="00:00.0" FontFamily="Consolas" FontSize="16" Margin="10,0,0,0" />
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button x:Name="RecordButton" Content="● 开始录音" Click="Record_Click" />
+            <Button x:Name="CloseButton" Content="关闭" Click="Close_Click" Margin="0" />
+        </StackPanel>
+    </StackPanel>
+</Window>

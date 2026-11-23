@@ -1,0 +1,108 @@
+<Window x:Class="MiniSoundpad.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="设置" Width="520" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <StackPanel Margin="16">
+        <GroupBox Header="音频设备" Padding="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="自己听（耳机）：" VerticalAlignment="Center" Margin="0,4,8,4" />
+                <ComboBox x:Name="MonitorBox" Grid.Column="1" Margin="0,4"
+                          DisplayMemberPath="Name" SelectedValuePath="Id" />
+
+                <TextBlock Grid.Row="1" Text="虚拟麦克风线缆：" VerticalAlignment="Center" Margin="0,4,8,4" />
+                <ComboBox x:Name="CableBox" Grid.Row="1" Grid.Column="1" Margin="0,4"
+                          DisplayMemberPath="Name" SelectedValuePath="Id" />
+
+                <TextBlock Grid.Row="2" Text="真实麦克风：" VerticalAlignment="Center" Margin="0,4,8,4" />
+                <ComboBox x:Name="MicBox" Grid.Row="2" Grid.Column="1" Margin="0,4"
+                          DisplayMemberPath="Name" SelectedValuePath="Id" />
+
+                <CheckBox x:Name="MicPassBox" Grid.Row="3" Grid.Column="1" Margin="0,6,0,0"
+                          Content="麦克风直通（把真实麦克风也混进虚拟麦克风，这样别人还能听到你说话）" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="音量" Padding="8" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="44" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition /><RowDefinition /><RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="耳机里的音效：" Margin="0,4,8,4" />
+                <Slider x:Name="MonitorVol" Grid.Column="1" Minimum="0" Maximum="1" Margin="0,4" />
+                <TextBlock Grid.Column="2" Text="{Binding Value, ElementName=MonitorVol, StringFormat={}{0:P0}}" Margin="6,4,0,4" />
+
+                <TextBlock Grid.Row="1" Text="别人听到的音效：" Margin="0,4,8,4" />
+                <Slider x:Name="CableVol" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" Margin="0,4" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Value, ElementName=CableVol, StringFormat={}{0:P0}}" Margin="6,4,0,4" />
+
+                <TextBlock Grid.Row="2" Text="麦克风增益：" Margin="0,4,8,4" />
+                <Slider x:Name="MicVol" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="2" Margin="0,4" />
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Value, ElementName=MicVol, StringFormat={}{0:P0}}" Margin="6,4,0,4" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="全局快捷键（游戏里也能用）" Padding="8" Margin="0,10,0,0">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="全部停止：" VerticalAlignment="Center" />
+                    <TextBlock x:Name="StopKeyText" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Grid.Column="2" Content="更改…" Tag="stop" Click="ChangeKey_Click" Margin="0,2" />
+
+                    <TextBlock Grid.Row="1" Text="选上一个音效：" VerticalAlignment="Center" />
+                    <TextBlock x:Name="PrevKeyText" Grid.Row="1" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Grid.Row="1" Grid.Column="2" Content="更改…" Tag="prev" Click="ChangeKey_Click" Margin="0,2" />
+
+                    <TextBlock Grid.Row="2" Text="选下一个音效：" VerticalAlignment="Center" />
+                    <TextBlock x:Name="NextKeyText" Grid.Row="2" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Grid.Row="2" Grid.Column="2" Content="更改…" Tag="next" Click="ChangeKey_Click" Margin="0,2" />
+
+                    <TextBlock Grid.Row="3" Text="播放选中的：" VerticalAlignment="Center" />
+                    <TextBlock x:Name="PlayKeyText" Grid.Row="3" Grid.Column="1" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Grid.Row="3" Grid.Column="2" Content="更改…" Tag="play" Click="ChangeKey_Click" Margin="0,2" />
+                </Grid>
+                <CheckBox x:Name="PreviewOnSelectBox" Margin="0,8,0,0"
+                          Content="用快捷键切换选中时，在耳机里试听开头 1.5 秒（别人听不到）" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="其它" Padding="8" Margin="0,10,0,0">
+            <StackPanel>
+                <CheckBox x:Name="StopOthersBox" Content="播放新音效时停止正在播放的其它音效" />
+                <CheckBox x:Name="CloseToTrayBox" Margin="0,6,0,0"
+                          Content="点 ✕ 关闭窗口时缩到右下角托盘（右键托盘图标 → 退出 才真正关闭）" />
+            </StackPanel>
+        </GroupBox>
+
+        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Foreground="Gray"
+                   Text="提示：Discord / 游戏的「输入设备」请选 CABLE Output (VB-Audio Virtual Cable)。" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="保存" IsDefault="True" Click="Save_Click" />
+            <Button Content="取消" IsCancel="True" Margin="0" />
+        </StackPanel>
+    </StackPanel>
+</Window>
