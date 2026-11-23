@@ -106,12 +106,7 @@ Views/               主窗口、设置、快捷键、录音、剪辑（含波�
 
 ### 发布新版本
 
-```powershell
-git tag v0.3.0
-git push origin v0.3.0
-```
-
-GitHub Actions 会自动编译并把 exe 发布到 Releases。
+把 `MiniSoundpad.csproj` 里的 `<Version>` 改大（比如 `0.3.0`），推送到 `main`。GitHub Actions 发现还没有 `v0.3.0` 这个版本，就会自动编译 exe、打标签并发布到 Releases。
 
 ## 数据存放位置
 

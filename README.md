@@ -108,12 +108,7 @@ Views/               main window, settings, hotkey, record, trim (with waveform 
 
 ### Releasing
 
-```powershell
-git tag v0.3.0
-git push origin v0.3.0
-```
-
-GitHub Actions builds the exe and publishes it to Releases.
+Bump `<Version>` in `MiniSoundpad.csproj` (e.g. `0.3.0`) and push to `main`. GitHub Actions notices there's no `v0.3.0` release yet, builds a self-contained exe, tags the commit and publishes it to Releases.
 
 ## Where data lives
 
